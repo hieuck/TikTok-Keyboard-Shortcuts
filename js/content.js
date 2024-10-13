@@ -1,10 +1,14 @@
 document.addEventListener('keydown', function (event) {
+    console.log("Key pressed:", event.code); // Ghi lại phím nhấn
+
     // Bỏ qua nếu đang nhập vào trường nhập liệu
     if (event.target.tagName === 'INPUT' || event.target.tagName === 'TEXTAREA') {
         return; 
     }
 
-    const video = document.querySelector('video'); // Đảm bảo tham chiếu video
+    // Đảm bảo tham chiếu video
+    const video = document.querySelector('video'); 
+    console.log("Video element:", video); // Kiểm tra xem video có được tìm thấy không
 
     switch (event.code) {
         case 'KeyF':
@@ -58,13 +62,13 @@ document.addEventListener('keydown', function (event) {
                 soundButton.click();
                 console.log('Sound toggled');
             }
-            break;
 
-        case 'ArrowRight':
-            // Nhấn phím mũi tên phải để tiến 10 giây
-            if (video) {
-                video.currentTime = Math.min(video.duration, video.currentTime + 10);
-                console.log('Skipped forward 10 seconds');
+            const muteButton = document.querySelector('css-1ij1wng-DivVoiceControlContainer e1ya9dnw12'); // Thêm biến mới ở đây
+            if (muteButton) { // Kiểm tra nếu muteButton tồn tại
+                muteButton.click(); // Hoặc thực hiện một hành động nào đó
+                console.log('Mute button clicked');
+            } else {
+                console.log("Mute button not found.");
             }
             break;
 
@@ -73,10 +77,24 @@ document.addEventListener('keydown', function (event) {
             if (video) {
                 video.currentTime = Math.max(0, video.currentTime - 10);
                 console.log('Skipped backward 10 seconds');
+                event.preventDefault(); // Ngăn chặn hành vi mặc định
+            }
+            break;
+
+        case 'ArrowRight':
+            // Nhấn phím mũi tên phải để tiến 10 giây
+            if (video) {
+                video.currentTime = Math.min(video.duration, video.currentTime + 10);
+                console.log('Skipped forward 10 seconds');
+                event.preventDefault(); // Ngăn chặn hành vi mặc định
             }
             break;
 
         default:
             break;
     }
+
+    // Đảm bảo tham chiếu thanh video
+    const seekBarContainer = document.querySelector('.css-qaoss2-DivVideoControlContainer.e1rpry1m5');
+    console.log("Seek Bar Container:", seekBarContainer); // Kiểm tra xem thanh tìm kiếm có được tìm thấy không
 });
