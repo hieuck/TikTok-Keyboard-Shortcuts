@@ -77,7 +77,8 @@ document.addEventListener('keydown', function (event) {
                 } else {
                     console.log('Video sound button not found');
                 }
-            } 
+            }
+
             // Kiểm tra nếu URL là dạng https://www.tiktok.com/@
             else if (window.location.href.includes('https://www.tiktok.com/@')) {
                 // Tìm nút âm thanh (nếu cần)
