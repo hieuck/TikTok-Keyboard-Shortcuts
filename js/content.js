@@ -66,41 +66,46 @@ document.addEventListener('keydown', function (event) {
             break;
 
         case 'KeyM':
-            // Nhấn phím M để bật/tắt âm thanh
-        
-            // Kiểm tra nếu URL là dạng https://www.tiktok.com/
-            if (window.location.href.includes('https://www.tiktok.com/')) {
-                const videoSound = document.querySelector('[data-e2e="video-sound"]');
-                if (videoSound) {
-                    videoSound.click(); // Nhấp vào nút âm thanh
-                    console.log('Video sound button clicked');
-                } else {
-                    console.log('Video sound button not found');
+            if (localStorage.getItem('featureMute') === 'true') {
+                // Nhấn phím M để bật/tắt âm thanh
+            
+                // Kiểm tra nếu URL là dạng https://www.tiktok.com/
+                if (window.location.href.includes('https://www.tiktok.com/')) {
+                    const videoSound = document.querySelector('[data-e2e="video-sound"]');
+                    if (videoSound) {
+                        videoSound.click(); // Nhấp vào nút âm thanh
+                        console.log('Video sound button clicked');
+                    } else {
+                        console.log('Video sound button not found');
+                    }
                 }
-            }
 
-            // Kiểm tra nếu URL là dạng https://www.tiktok.com/@
-            else if (window.location.href.includes('https://www.tiktok.com/@')) {
-                // Tìm nút âm thanh (nếu cần)
-                const soundButton = document.querySelector('button[data-e2e="browse-sound"]');
-                
-                if (soundButton) {
-                    soundButton.click(); // Nhấp vào nút âm thanh
-                    console.log('Sound toggled');
+                // Kiểm tra nếu URL là dạng https://www.tiktok.com/@
+                else if (window.location.href.includes('https://www.tiktok.com/@')) {
+                    // Tìm nút âm thanh (nếu cần)
+                    const soundButton = document.querySelector('button[data-e2e="browse-sound"]');
+                    
+                    if (soundButton) {
+                        soundButton.click(); // Nhấp vào nút âm thanh
+                        console.log('Sound toggled');
+                    } else {
+                        console.log('Sound button not found');
+                    }
                 } else {
-                    console.log('Sound button not found');
+                    // Sử dụng XPath để tìm nút mute
+                    const muteButtonXPath = '//*[@id="main-content-video_detail"]/div/div[2]/div[1]/div[1]/div[1]/div[6]/div[2]/div[2]/div[5]/div/div';
+                    const muteButton = document.evaluate(muteButtonXPath, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+            
+                    if (muteButton) {
+                        muteButton.click(); // Nhấp vào nút mute
+                        console.log('Mute button clicked');
+                    } else {
+                        console.log('Mute button not found');
+                    }
                 }
             } else {
-                // Sử dụng XPath để tìm nút mute
-                const muteButtonXPath = '//*[@id="main-content-video_detail"]/div/div[2]/div[1]/div[1]/div[1]/div[6]/div[2]/div[2]/div[5]/div/div';
-                const muteButton = document.evaluate(muteButtonXPath, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
-        
-                if (muteButton) {
-                    muteButton.click(); // Nhấp vào nút mute
-                    console.log('Mute button clicked');
-                } else {
-                    console.log('Mute button not found');
-                }
+                localStorage.setItem('featureMute', 'true');
+                console.log('Mute feature enabled');
             }
             break;
 

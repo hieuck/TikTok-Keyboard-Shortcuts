@@ -39,4 +39,41 @@ document.addEventListener('DOMContentLoaded', function () {
             console.log('Settings saved');
         });
     });
+    // Hàm cập nhật trạng thái các tính năng
+    function updateFeatures() {
+        const features = {
+            follow: featureFollowCheckbox.checked,
+            navigate: featureNavigateCheckbox.checked,
+            prev: featurePrevCheckbox.checked,
+            next: featureNextCheckbox.checked,
+            playPause: featurePlayPauseCheckbox.checked,
+            mute: featureMuteCheckbox.checked,
+            rewind: featureRewindCheckbox.checked,
+            forward: featureForwardCheckbox.checked,
+        };
+
+        // Đăng ký các sự kiện phím tắt tương ứng dựa trên trạng thái
+        chrome.storage.local.set(features, () => {
+            console.log('Features updated:', features);
+        });
+    }
+
+    // Gọi updateFeatures khi nhấn nút Save
+    saveButton.addEventListener('click', function () {
+        // Lưu trạng thái checkbox
+        chrome.storage.local.set({
+            featureFollow: featureFollowCheckbox.checked,
+            featureNavigate: featureNavigateCheckbox.checked,
+            featurePrev: featurePrevCheckbox.checked,
+            featureNext: featureNextCheckbox.checked,
+            featurePlayPause: featurePlayPauseCheckbox.checked,
+            featureMute: featureMuteCheckbox.checked,
+            featureRewind: featureRewindCheckbox.checked,
+            featureForward: featureForwardCheckbox.checked
+        }, function () {
+            console.log('Settings saved');
+            updateFeatures(); // Cập nhật trạng thái các tính năng
+        });
+    });
+
 });
