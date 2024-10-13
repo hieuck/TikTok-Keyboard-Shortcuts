@@ -1,20 +1,20 @@
 {
     "manifest_version": 3,
-    "name": "TikTok Keyboard Shortcuts",
+    "name": "TikTok Video Controller",
     "version": "1.0",
-    "description": "Use keyboard shortcuts to interact with TikTok videos.",
-    "permissions": ["activeTab", "scripting"],
+    "description": "Control TikTok videos using keyboard shortcuts.",
+    "permissions": ["activeTab"],
     "background": {
-      "service_worker": "js/background.js"
+        "service_worker": "js/background.js"
     },
     "content_scripts": [
-      {
-        "matches": ["*://www.tiktok.com/*"],
-        "js": ["js/content.js"]
-      }
+        {
+            "matches": ["*://www.tiktok.com/*"],
+            "js": ["js/content.js"]
+        }
     ],
     "action": {
-      "default_popup": "popup.html"
+        "default_popup": "popup.html"
     }
-  }
-  
+
+}
