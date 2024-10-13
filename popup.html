@@ -1,19 +1,59 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TikTok Video Controller</title>
+    <title>Settings</title>
     <style>
         body {
-            width: 200px;
+            width: 250px;
+            padding: 10px;
             font-family: Arial, sans-serif;
+        }
+        .toggle {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .toggle input {
+            margin-right: 10px;
         }
     </style>
 </head>
 <body>
-    <h3>Điều khiển Video TikTok</h3>
-    <p>Nhấn phím tắt để điều khiển video.</p>
-    <script src="js/popup.js"></script>
+    <h3>Settings</h3>
+    <div class="toggle">
+        <input type="checkbox" id="featureFollow" />
+        <label for="featureFollow">Enable Follow Channel (F)</label>
+    </div>
+    <div class="toggle">
+        <input type="checkbox" id="featureNavigate" />
+        <label for="featureNavigate">Enable Navigate Channel (G)</label>
+    </div>
+    <div class="toggle">
+        <input type="checkbox" id="featurePrev" />
+        <label for="featurePrev">Enable Previous Video (↑)</label>
+    </div>
+    <div class="toggle">
+        <input type="checkbox" id="featureNext" />
+        <label for="featureNext">Enable Next Video (↓)</label>
+    </div>
+    <div class="toggle">
+        <input type="checkbox" id="featurePlayPause" />
+        <label for="featurePlayPause">Enable Play/Pause (Space)</label>
+    </div>
+    <div class="toggle">
+        <input type="checkbox" id="featureMute" />
+        <label for="featureMute">Enable Mute (M)</label>
+    </div>
+    <div class="toggle">
+        <input type="checkbox" id="featureRewind" />
+        <label for="featureRewind">Enable Rewind (←)</label>
+    </div>
+    <div class="toggle">
+        <input type="checkbox" id="featureForward" />
+        <label for="featureForward">Enable Forward (→)</label>
+    </div>
+    <script src="popup.js"></script>
 </body>
 </html>

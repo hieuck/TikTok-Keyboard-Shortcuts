@@ -3,7 +3,10 @@
     "name": "TikTok Video Controller",
     "version": "1.0",
     "description": "Control TikTok videos using keyboard shortcuts.",
-    "permissions": ["activeTab"],
+    "permissions": [
+        "activeTab",
+        "storage" // Cần thiết để sử dụng localStorage
+    ],
     "background": {
         "service_worker": "js/background.js"
     },
