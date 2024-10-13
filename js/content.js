@@ -1,5 +1,5 @@
 document.addEventListener('keydown', function (event) {
-    console.log("Key pressed:", event.code); // Ghi lại phím nhấn
+    // console.log("Key pressed:", event.code); // Ghi lại phím nhấn
 
     // Bỏ qua nếu đang nhập vào trường nhập liệu
     if (event.target.tagName === 'INPUT' || event.target.tagName === 'TEXTAREA') {
@@ -9,16 +9,22 @@ document.addEventListener('keydown', function (event) {
     // Đảm bảo tham chiếu video
     const video = document.querySelector('video'); 
     const controller = document.querySelector('.vsc-controller'); 
-    console.log("Video element:", video); // Kiểm tra xem video có được tìm thấy không
-    console.log("Controller element:", controller); // Kiểm tra xem thanh tìm kiếm có không
 
     switch (event.code) {
         case 'KeyF':
             // Nhấn phím F để theo dõi kênh
-            const followButton = document.querySelector('[data-e2e="browse-follow"] button');
+            const followButton = document.querySelector('[data-e2e="browse-follow"] button'); // Nút Follow con
+            const followContainer = document.querySelector('[data-e2e="browse-follow"]'); // Phần tử chứa
+
+            // Kiểm tra nếu nút Follow con tồn tại và nhấp vào nó
             if (followButton) {
                 followButton.click();
                 console.log('Follow button clicked');
+            } 
+            // Nếu không có nút Follow con, kiểm tra phần tử chứa
+            else if (followContainer) {
+                followContainer.click();
+                console.log('Follow container clicked');
             }
             break;
 
@@ -46,6 +52,7 @@ document.addEventListener('keydown', function (event) {
             if (nextVideoButton) {
                 nextVideoButton.click();
                 console.log('Next video button clicked');
+                event.preventDefault(); // Ngăn chặn hành vi mặc định (cuộn trang)
             }
             break;
 
@@ -60,19 +67,39 @@ document.addEventListener('keydown', function (event) {
 
         case 'KeyM':
             // Nhấn phím M để bật/tắt âm thanh
-            const soundButton = document.querySelector('button[data-e2e="browse-sound"]');
-            if (soundButton) {
-                soundButton.click();
-                console.log('Sound toggled');
-            }
-            break;
-
-            const muteButton = document.querySelector('css-1ij1wng-DivVoiceControlContainer e1ya9dnw12'); // Thêm biến mới ở đây
-            if (muteButton) { // Kiểm tra nếu muteButton tồn tại
-                muteButton.click(); // Hoặc thực hiện một hành động nào đó
-                console.log('Mute button clicked');
+        
+            // Kiểm tra nếu URL là dạng https://www.tiktok.com/
+            if (window.location.href.includes('https://www.tiktok.com/')) {
+                const videoSound = document.querySelector('[data-e2e="video-sound"]');
+                if (videoSound) {
+                    videoSound.click(); // Nhấp vào nút âm thanh
+                    console.log('Video sound button clicked');
+                } else {
+                    console.log('Video sound button not found');
+                }
+            } 
+            // Kiểm tra nếu URL là dạng https://www.tiktok.com/@
+            else if (window.location.href.includes('https://www.tiktok.com/@')) {
+                // Tìm nút âm thanh (nếu cần)
+                const soundButton = document.querySelector('button[data-e2e="browse-sound"]');
+                
+                if (soundButton) {
+                    soundButton.click(); // Nhấp vào nút âm thanh
+                    console.log('Sound toggled');
+                } else {
+                    console.log('Sound button not found');
+                }
             } else {
-                console.log("Mute button not found.");
+                // Sử dụng XPath để tìm nút mute
+                const muteButtonXPath = '//*[@id="main-content-video_detail"]/div/div[2]/div[1]/div[1]/div[1]/div[6]/div[2]/div[2]/div[5]/div/div';
+                const muteButton = document.evaluate(muteButtonXPath, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+        
+                if (muteButton) {
+                    muteButton.click(); // Nhấp vào nút mute
+                    console.log('Mute button clicked');
+                } else {
+                    console.log('Mute button not found');
+                }
             }
             break;
 
@@ -97,8 +124,4 @@ document.addEventListener('keydown', function (event) {
         default:
             break;
     }
-
-    // Đảm bảo tham chiếu thanh video
-    const seekBarContainer = document.querySelector('.css-qaoss2-DivVideoControlContainer.e1rpry1m5');
-    console.log("Seek Bar Container:", seekBarContainer); // Kiểm tra xem thanh tìm kiếm có được tìm thấy không
 });
