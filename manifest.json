@@ -5,7 +5,8 @@
     "description": "Control TikTok videos using keyboard shortcuts.",
     "permissions": [
         "activeTab",
-        "storage" // Cần thiết để sử dụng localStorage
+        "scripting",
+        "storage"
     ],
     "background": {
         "service_worker": "js/background.js"
