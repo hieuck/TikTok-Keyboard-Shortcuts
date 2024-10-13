@@ -8,7 +8,9 @@ document.addEventListener('keydown', function (event) {
 
     // Đảm bảo tham chiếu video
     const video = document.querySelector('video'); 
+    const controller = document.querySelector('.vsc-controller'); 
     console.log("Video element:", video); // Kiểm tra xem video có được tìm thấy không
+    console.log("Controller element:", controller); // Kiểm tra xem thanh tìm kiếm có không
 
     switch (event.code) {
         case 'KeyF':
@@ -52,6 +54,7 @@ document.addEventListener('keydown', function (event) {
             if (video) {
                 video.paused ? video.play() : video.pause();
                 console.log('Video playback toggled');
+                event.preventDefault(); // Ngăn chặn hành vi mặc định (cuộn trang)
             }
             break;
 
@@ -62,6 +65,7 @@ document.addEventListener('keydown', function (event) {
                 soundButton.click();
                 console.log('Sound toggled');
             }
+            break;
 
             const muteButton = document.querySelector('css-1ij1wng-DivVoiceControlContainer e1ya9dnw12'); // Thêm biến mới ở đây
             if (muteButton) { // Kiểm tra nếu muteButton tồn tại
