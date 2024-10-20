@@ -1,8 +1,9 @@
 document.addEventListener('keydown', function (event) {
-    // console.log("Key pressed:", event.code); // Ghi lại phím nhấn
+    // Bỏ qua nếu đang nhập vào trường nhập liệu hoặc phần tử có contenteditable="true"
+    const isInputField = event.target.tagName === 'INPUT' || event.target.tagName === 'TEXTAREA';
+    const isEditableDiv = event.target.getAttribute('contenteditable') === 'true';
 
-    // Bỏ qua nếu đang nhập vào trường nhập liệu
-    if (event.target.tagName === 'INPUT' || event.target.tagName === 'TEXTAREA') {
+    if (isInputField || isEditableDiv) {
         return; 
     }
 
@@ -13,16 +14,13 @@ document.addEventListener('keydown', function (event) {
     switch (event.code) {
         case 'KeyF':
             // Nhấn phím F để theo dõi kênh
-            const followButton = document.querySelector('[data-e2e="browse-follow"] button'); // Nút Follow con
-            const followContainer = document.querySelector('[data-e2e="browse-follow"]'); // Phần tử chứa
+            const followButton = document.querySelector('[data-e2e="browse-follow"] button'); 
+            const followContainer = document.querySelector('[data-e2e="browse-follow"]');
 
-            // Kiểm tra nếu nút Follow con tồn tại và nhấp vào nó
             if (followButton) {
                 followButton.click();
                 console.log('Follow button clicked');
-            } 
-            // Nếu không có nút Follow con, kiểm tra phần tử chứa
-            else if (followContainer) {
+            } else if (followContainer) {
                 followContainer.click();
                 console.log('Follow container clicked');
             }
@@ -67,8 +65,6 @@ document.addEventListener('keydown', function (event) {
 
         case 'KeyM':
             if (localStorage.getItem('featureMute') === 'true') {
-                // Nhấn phím M để bật/tắt âm thanh
-            
                 // Kiểm tra nếu URL là dạng https://www.tiktok.com/
                 if (window.location.href.includes('https://www.tiktok.com/')) {
                     const videoSound = document.querySelector('[data-e2e="video-sound"]');
@@ -78,13 +74,8 @@ document.addEventListener('keydown', function (event) {
                     } else {
                         console.log('Video sound button not found');
                     }
-                }
-
-                // Kiểm tra nếu URL là dạng https://www.tiktok.com/@
-                else if (window.location.href.includes('https://www.tiktok.com/@')) {
-                    // Tìm nút âm thanh (nếu cần)
+                } else if (window.location.href.includes('https://www.tiktok.com/@')) {
                     const soundButton = document.querySelector('button[data-e2e="browse-sound"]');
-                    
                     if (soundButton) {
                         soundButton.click(); // Nhấp vào nút âm thanh
                         console.log('Sound toggled');
@@ -92,10 +83,9 @@ document.addEventListener('keydown', function (event) {
                         console.log('Sound button not found');
                     }
                 } else {
-                    // Sử dụng XPath để tìm nút mute
                     const muteButtonXPath = '//*[@id="main-content-video_detail"]/div/div[2]/div[1]/div[1]/div[1]/div[6]/div[2]/div[2]/div[5]/div/div';
                     const muteButton = document.evaluate(muteButtonXPath, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
-            
+
                     if (muteButton) {
                         muteButton.click(); // Nhấp vào nút mute
                         console.log('Mute button clicked');
